@@ -5,6 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+/**
+ * {@link UserService} standard implementation.
+ */
 @Slf4j
 public class UserServiceImpl implements UserService {
 

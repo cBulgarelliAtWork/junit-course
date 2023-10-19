@@ -12,10 +12,12 @@ import java.time.LocalDate;
 @Setter
 @ToString
 @Builder
+@AllArgsConstructor
 public class User implements Serializable {
 
     private String name;
     private String surname;
     private LocalDate birthDate;
     private Gender gender;
+    private String email;
 }

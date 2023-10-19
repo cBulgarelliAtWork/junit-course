@@ -1,6 +1,7 @@
 package com.overit.junitcourse.example3;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import static com.overit.junitcourse.example3.UserServiceImpl.EMPTY_USERS_LIST_H
 import static com.overit.junitcourse.example3.UserServiceImpl.NO_USERS_WERE_FOUND_BY_APPLYING_THE_REQUESTED_FILTER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UserServiceImplTest {
 
@@ -22,6 +24,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("filterByGender: when an empty users list is used, an EmptyUsersException is expected - (assertions made with AssertJ)")
     void filterByGender_EmptyUsers_EmptyUsersExceptionIsThrown() {
         // given
         Gender gender = Gender.MALE;
@@ -33,7 +36,35 @@ class UserServiceImplTest {
     }
 
     @Test
-    void filterByGender_NoFilteredUsers_NoUsersFoundExceptionIsThrown() {
+    @DisplayName("filterByGender: when no user is found applying the provided gender filter, a NoUsersFoundException is expected - (assertions made with JUnit)")
+    void filterByGender_JUnitNoFilteredUsers_NoUsersFoundExceptionIsThrown() {
+        // given
+        Gender gender = Gender.FEMALE;
+        List<User> users = List.of(User.builder()
+                        .surname("Rossi")
+                        .name("Mario")
+                        .birthDate(LocalDate.of(1978, 1, 16))
+                        .gender(Gender.MALE)
+                        .build(),
+                User.builder()
+                        .surname("Verdi")
+                        .name("Paolo")
+                        .birthDate(LocalDate.of(1986, 10, 7))
+                        .gender(Gender.MALE)
+                        .build(),
+                User.builder()
+                        .surname("Bianchi")
+                        .name("Carlo")
+                        .birthDate(LocalDate.of(2000, 1, 31))
+                        .gender(Gender.MALE)
+                        .build());
+        // when - then
+        assertThrows(NoUsersFoundException.class, () -> sut.filterByGender(gender, users), NO_USERS_WERE_FOUND_BY_APPLYING_THE_REQUESTED_FILTER);
+    }
+
+    @Test
+    @DisplayName("filterByGender: when no user is found applying the provided gender filter, a NoUsersFoundException is expected - (assertions made with AssertJ)")
+    void filterByGender_AssertJNoFilteredUsers_NoUsersFoundExceptionIsThrown() {
         // given
         Gender gender = Gender.FEMALE;
         List<User> users = List.of(User.builder()
@@ -61,6 +92,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("filterByGender: when a not empty users list is provided, a filtered users list is expected")
     void filterByGender_NotEmptyUsers_FilteredUsersAreReturned() {
         // given
         Gender gender = Gender.MALE;
