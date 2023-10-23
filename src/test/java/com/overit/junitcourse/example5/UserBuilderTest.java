@@ -83,4 +83,60 @@ class UserBuilderTest {
             mockedGender.verify(() -> Gender.of(genderAsString));
         }
     }
+
+    @Test
+    void name_WhenCalled_UserBuilderIsReturned() {
+        // given
+        String name = easyRandom.nextObject(String.class);
+        // when
+        UserBuilder actual = sut.name(name);
+        // then
+        assertThat(actual).isNotNull()
+                .isSameAs(sut)
+                .extracting("name")
+                .isNotNull()
+                .isEqualTo(name);
+    }
+
+    @Test
+    void surname_WhenCalled_UserBuilderIsReturned() {
+        // given
+        String surname = easyRandom.nextObject(String.class);
+        // when
+        UserBuilder actual = sut.surname(surname);
+        // then
+        assertThat(actual).isNotNull()
+                .isSameAs(sut)
+                .extracting("surname")
+                .isNotNull()
+                .isEqualTo(surname);
+    }
+
+    @Test
+    void birthDate_WhenCalled_UserBuilderIsReturned() {
+        // given
+        LocalDate birthDate = easyRandom.nextObject(LocalDate.class);
+        // when
+        UserBuilder actual = sut.birthDate(birthDate);
+        // then
+        assertThat(actual).isNotNull()
+                .isSameAs(sut)
+                .extracting("birthDate")
+                .isNotNull()
+                .isEqualTo(birthDate);
+    }
+
+    @Test
+    void email_WhenCalled_UserBuilderIsReturned() {
+        // given
+        String email = easyRandom.nextObject(String.class);
+        // when
+        UserBuilder actual = sut.email(email);
+        // then
+        assertThat(actual).isNotNull()
+                .isSameAs(sut)
+                .extracting("email")
+                .isNotNull()
+                .isEqualTo(email);
+    }
 }

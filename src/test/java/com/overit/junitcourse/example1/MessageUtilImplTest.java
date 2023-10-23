@@ -24,7 +24,7 @@ class MessageUtilImplTest {
         // when
         String actual = sut.getHelloMessage(name);
         // then
-        assertEquals(MessageUtilImpl.HELLO + name, actual);
+        assertEquals(MessageUtilImpl.HELLO + name, actual, "strings are not equal");
     }
 
     @Test
